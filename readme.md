@@ -1,43 +1,38 @@
-# TotalFinder.osax
+# TotalSpaces.osax
 
-This source code implements scripting additions used by [TotalFinder](http://totalfinder.binaryage.com).
+This source code implements scripting additions used by [TotalSpaces](http://totalspaces.binaryage.com).
 
-**TotalFinder** is a plugin for Apples's Finder.app which brings tabs, dual panels and more!
+**TotalSpaces** is a plugin for Apple's Dock.app which adds some neat Spaces features.
 
-<a href="http://totalfinder.binaryage.com"><img src="http://totalfinder.binaryage.com/shared/img/totalfinder-mainshot.png"></a>
-
-### Visit [totalfinder.binaryage.com](http://totalfinder.binaryage.com)
+### Visit [totalspaces.binaryage.com](http://totalspaces.binaryage.com)
 
 ## Is this a replacement for SIMBL?
 
-Yes, this is SIMBL-lite tailored specifically for TotalFinder.
+Yes, this is SIMBL-lite tailored specifically for TotalSpaces.
 
-You may want to read the article about my motivations:
-[http://blog.binaryage.com/totalfinder-without-simbl](http://blog.binaryage.com/totalfinder-without-simbl)
+## BATSinit event
 
-## BATFinit event
+Installs TotalSpaces.bundle into running Spaces.app (/Applications/TotalSpaces.app is just a wrapper app for this script)
 
-Installs TotalFinder.bundle into running Finder.app (/Applications/TotalFinder.app is just a wrapper app for this script)
-
-    tell application "Finder"
-        -- give Finder some time to launch if it wasn't running (rare case)
+    tell application "Dock"
+        -- give Dock some time to launch if it wasn't running (rare case)
         delay 1 -- this delay is important to prevent random "Connection is Invalid -609" AppleScript errors 
         try
-            «event BATFinit»
+            «event BATSinit»
         on error msg number num
-            display dialog "Unable to launch TotalFinder." & msg & " (" & (num as text) & ")"
+            display dialog "Unable to launch TotalSpaces." & msg & " (" & (num as text) & ")"
         end try
     end tell
 
-## BATFchck event
+## BATSchck event
 
-Check if TotalFinder is present in running Finder image.
+Check if TotalSpaces is present in running Dock image.
 
-    tell application "Finder"
-        -- give Finder some time to launch if it wasn't running (rare case)
+    tell application "Dock"
+        -- give Spaces some time to launch if it wasn't running (rare case)
         delay 1 -- this delay is important to prevent random "Connection is Invalid -609" AppleScript errors 
         try
-            «event BATFchck»
+            «event BATSchck»
             set res to "present"
         on error msg number num
             set res to "not present"
