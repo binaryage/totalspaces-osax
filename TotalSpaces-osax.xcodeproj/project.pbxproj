@@ -9,21 +9,21 @@
 /* Begin PBXBuildFile section */
 		8D576314048677EA00EA77CD /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AA1909FFE8422F4C02AAC07 /* CoreFoundation.framework */; };
 		8D5B49A804867FD3000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8D5B49A704867FD3000E48DA /* InfoPlist.strings */; };
-		D6ACBEA2117B7D5600F6691C /* TotalFinderInjector.m in Sources */ = {isa = PBXBuildFile; fileRef = D6ACBE9E117B7D5600F6691C /* TotalFinderInjector.m */; };
-		D6ACBEA3117B7D5600F6691C /* TFStandardVersionComparator.m in Sources */ = {isa = PBXBuildFile; fileRef = D6ACBEA0117B7D5600F6691C /* TFStandardVersionComparator.m */; };
-		D6ACBEA5117B7D6100F6691C /* TotalFinderInjector.sdef in Resources */ = {isa = PBXBuildFile; fileRef = D6ACBEA4117B7D6100F6691C /* TotalFinderInjector.sdef */; };
+		D6ACBEA2117B7D5600F6691C /* TotalSpacesInjector.m in Sources */ = {isa = PBXBuildFile; fileRef = D6ACBE9E117B7D5600F6691C /* TotalSpacesInjector.m */; };
+		D6ACBEA3117B7D5600F6691C /* TSStandardVersionComparator.m in Sources */ = {isa = PBXBuildFile; fileRef = D6ACBEA0117B7D5600F6691C /* TSStandardVersionComparator.m */; };
+		D6ACBEA5117B7D6100F6691C /* TotalSpacesInjector.sdef in Resources */ = {isa = PBXBuildFile; fileRef = D6ACBEA4117B7D6100F6691C /* TotalSpacesInjector.sdef */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0AA1909FFE8422F4C02AAC07 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
 		8D576317048677EA00EA77CD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D60A992314CE37030061AD6D /* TotalFinder.osax */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TotalFinder.osax; sourceTree = BUILT_PRODUCTS_DIR; };
-		D6ACBE9E117B7D5600F6691C /* TotalFinderInjector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TotalFinderInjector.m; sourceTree = "<group>"; };
-		D6ACBE9F117B7D5600F6691C /* TFVersionComparisonProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFVersionComparisonProtocol.h; sourceTree = "<group>"; };
-		D6ACBEA0117B7D5600F6691C /* TFStandardVersionComparator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFStandardVersionComparator.m; sourceTree = "<group>"; };
-		D6ACBEA1117B7D5600F6691C /* TFStandardVersionComparator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFStandardVersionComparator.h; sourceTree = "<group>"; };
-		D6ACBEA4117B7D6100F6691C /* TotalFinderInjector.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = TotalFinderInjector.sdef; sourceTree = "<group>"; };
+		D60A992314CE37030061AD6D /* TotalSpaces.osax */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TotalSpaces.osax; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6ACBE9E117B7D5600F6691C /* TotalSpacesInjector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TotalSpacesInjector.m; sourceTree = "<group>"; };
+		D6ACBE9F117B7D5600F6691C /* TSVersionComparisonProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSVersionComparisonProtocol.h; sourceTree = "<group>"; };
+		D6ACBEA0117B7D5600F6691C /* TSStandardVersionComparator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSStandardVersionComparator.m; sourceTree = "<group>"; };
+		D6ACBEA1117B7D5600F6691C /* TSStandardVersionComparator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSStandardVersionComparator.h; sourceTree = "<group>"; };
+		D6ACBEA4117B7D6100F6691C /* TotalSpacesInjector.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = TotalSpacesInjector.sdef; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,7 +38,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		089C166AFE841209C02AAC07 /* TotalFinder-osax */ = {
+		089C166AFE841209C02AAC07 /* TotalSpaces-osax */ = {
 			isa = PBXGroup;
 			children = (
 				08FB77AFFE84173DC02AAC07 /* Source */,
@@ -46,7 +46,7 @@
 				089C1671FE841209C02AAC07 /* Dependencies */,
 				D60A992414CE37030061AD6D /* Products */,
 			);
-			name = "TotalFinder-osax";
+			name = "TotalSpaces-osax";
 			sourceTree = "<group>";
 		};
 		089C1671FE841209C02AAC07 /* Dependencies */ = {
@@ -60,7 +60,7 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D6ACBEA4117B7D6100F6691C /* TotalFinderInjector.sdef */,
+				D6ACBEA4117B7D6100F6691C /* TotalSpacesInjector.sdef */,
 				8D576317048677EA00EA77CD /* Info.plist */,
 				8D5B49A704867FD3000E48DA /* InfoPlist.strings */,
 			);
@@ -70,10 +70,10 @@
 		08FB77AFFE84173DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				D6ACBE9E117B7D5600F6691C /* TotalFinderInjector.m */,
-				D6ACBE9F117B7D5600F6691C /* TFVersionComparisonProtocol.h */,
-				D6ACBEA0117B7D5600F6691C /* TFStandardVersionComparator.m */,
-				D6ACBEA1117B7D5600F6691C /* TFStandardVersionComparator.h */,
+				D6ACBE9E117B7D5600F6691C /* TotalSpacesInjector.m */,
+				D6ACBE9F117B7D5600F6691C /* TSVersionComparisonProtocol.h */,
+				D6ACBEA0117B7D5600F6691C /* TSStandardVersionComparator.m */,
+				D6ACBEA1117B7D5600F6691C /* TSStandardVersionComparator.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -81,7 +81,7 @@
 		D60A992414CE37030061AD6D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D60A992314CE37030061AD6D /* TotalFinder.osax */,
+				D60A992314CE37030061AD6D /* TotalSpaces.osax */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -89,22 +89,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8D57630D048677EA00EA77CD /* TotalFinder.osax */ = {
+		8D57630D048677EA00EA77CD /* TotalSpaces.osax */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB911A08733D790010E9CD /* Build configuration list for PBXNativeTarget "TotalFinder.osax" */;
+			buildConfigurationList = 1DEB911A08733D790010E9CD /* Build configuration list for PBXNativeTarget "TotalSpaces.osax" */;
 			buildPhases = (
 				8D57630F048677EA00EA77CD /* Resources */,
 				8D576311048677EA00EA77CD /* Sources */,
 				8D576313048677EA00EA77CD /* Frameworks */,
+				D6827C8115410D60008DE10E /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = TotalFinder.osax;
+			name = TotalSpaces.osax;
 			productInstallPath = "$(HOME)/Library/Bundles";
-			productName = "TotalFinder-osax";
-			productReference = D60A992314CE37030061AD6D /* TotalFinder.osax */;
+			productName = "TotalSpaces-osax";
+			productReference = D60A992314CE37030061AD6D /* TotalSpaces.osax */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -117,7 +118,7 @@
 				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = BinaryAge;
 			};
-			buildConfigurationList = 1DEB911E08733D790010E9CD /* Build configuration list for PBXProject "TotalFinder-osax" */;
+			buildConfigurationList = 1DEB911E08733D790010E9CD /* Build configuration list for PBXProject "TotalSpaces-osax" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -125,12 +126,12 @@
 				en,
 				English,
 			);
-			mainGroup = 089C166AFE841209C02AAC07 /* TotalFinder-osax */;
+			mainGroup = 089C166AFE841209C02AAC07 /* TotalSpaces-osax */;
 			productRefGroup = D60A992414CE37030061AD6D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D57630D048677EA00EA77CD /* TotalFinder.osax */,
+				8D57630D048677EA00EA77CD /* TotalSpaces.osax */,
 			);
 		};
 /* End PBXProject section */
@@ -141,19 +142,35 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D5B49A804867FD3000E48DA /* InfoPlist.strings in Resources */,
-				D6ACBEA5117B7D6100F6691C /* TotalFinderInjector.sdef in Resources */,
+				D6ACBEA5117B7D6100F6691C /* TotalSpacesInjector.sdef in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D6827C8115410D60008DE10E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "rm -rf ~/Library/ScriptingAdditions/TotalSpaces.osax\nmkdir -p ~/Library/ScriptingAdditions/TotalSpaces.osax\nchmod ugo+rw ~/Library/ScriptingAdditions/TotalSpaces.osax\nln -s \"$BUILT_PRODUCTS_DIR/TotalSpaces.osax/Contents\" ~/Library/ScriptingAdditions/TotalSpaces.osax/Contents # faster than copy";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8D576311048677EA00EA77CD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D6ACBEA2117B7D5600F6691C /* TotalFinderInjector.m in Sources */,
-				D6ACBEA3117B7D5600F6691C /* TFStandardVersionComparator.m in Sources */,
+				D6ACBEA2117B7D5600F6691C /* TotalSpacesInjector.m in Sources */,
+				D6ACBEA3117B7D5600F6691C /* TSStandardVersionComparator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,7 +202,7 @@
 					"-framework",
 					AppKit,
 				);
-				PRODUCT_NAME = TotalFinder;
+				PRODUCT_NAME = TotalSpaces;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = osax;
 			};
@@ -203,7 +220,7 @@
 					"-framework",
 					AppKit,
 				);
-				PRODUCT_NAME = TotalFinder;
+				PRODUCT_NAME = TotalSpaces;
 				WRAPPER_EXTENSION = osax;
 			};
 			name = Release;
@@ -228,7 +245,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB911A08733D790010E9CD /* Build configuration list for PBXNativeTarget "TotalFinder.osax" */ = {
+		1DEB911A08733D790010E9CD /* Build configuration list for PBXNativeTarget "TotalSpaces.osax" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB911B08733D790010E9CD /* Debug */,
@@ -237,7 +254,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1DEB911E08733D790010E9CD /* Build configuration list for PBXProject "TotalFinder-osax" */ = {
+		1DEB911E08733D790010E9CD /* Build configuration list for PBXProject "TotalSpaces-osax" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB911F08733D790010E9CD /* Debug */,

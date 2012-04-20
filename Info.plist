@@ -7,26 +7,26 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.binaryage.totalfinder.injector</string>
+	<string>com.binaryage.totalspaces.injector</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>TotalFinderInjector</string>
+	<string>TotalSpacesInjector</string>
 	<key>CFBundlePackageType</key>
 	<string>osax</string>
 	<key>CFBundleShortVersionString</key>
-    <string>##VERSION##</string>
+	<string>##VERSION##</string>
 	<key>CFBundleSignature</key>
 	<string>BAGE</string>
 	<key>CFBundleVersion</key>
-    <string>##VERSION##</string>
+	<string>##VERSION##</string>
 	<key>OSAScriptingDefinition</key>
-	<string>TotalFinderInjector.sdef</string>
+	<string>TotalSpacesInjector.sdef</string>
 	<key>OSAXHandlers</key>
 	<dict>
 		<key>Events</key>
 		<dict>
-			<key>BATFinit</key>
+			<key>BATSinit</key>
 			<dict>
 				<key>Handler</key>
 				<string>HandleInitEvent</string>
@@ -35,7 +35,7 @@
 				<key>Context</key>
 				<string>Process</string>
 			</dict>
-			<key>BATFchck</key>
+			<key>BATSchck</key>
 			<dict>
 				<key>Handler</key>
 				<string>HandleCheckEvent</string>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
+<dictionary title="TotalSpacesInjector Terminology">
+    <suite name="TotalSpacesInjector Suite" code="BATS" description="TotalSpaces Injector commands">
+        <command name="init TotalSpaces" code="BATSinit" description="Install TotalSpaces.bundle into the Dock process"/>
+        <command name="check TotalSpaces" code="BATSchck" description="Check presence of TotalSpaces in the Dock process"/>
+    </suite>
+</dictionary>

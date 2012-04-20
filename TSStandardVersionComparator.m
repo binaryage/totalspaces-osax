@@ -1,5 +1,5 @@
 //
-//  TFStandardVersionComparator.m
+//  TSStandardVersionComparator.m
 //  Sparkle
 //
 //  Created by Andy Matuschak on 12/21/07.
@@ -7,15 +7,15 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "TFStandardVersionComparator.h"
+#import "TSStandardVersionComparator.h"
 
-@implementation TFStandardVersionComparator
+@implementation TSStandardVersionComparator
 
-+ (TFStandardVersionComparator *)defaultComparator
++ (TSStandardVersionComparator *)defaultComparator
 {
-	static TFStandardVersionComparator *defaultComparator = nil;
+	static TSStandardVersionComparator *defaultComparator = nil;
 	if (defaultComparator == nil)
-		defaultComparator = [[TFStandardVersionComparator alloc] init];
+		defaultComparator = [[TSStandardVersionComparator alloc] init];
 	return defaultComparator;
 }
 
