@@ -75,7 +75,7 @@ OSErr HandleInitEvent(const AppleEvent *ev, AppleEvent *reply, long refcon) {
         }
         
         // future compatibility check
-        NSString* supressKey = @"TotalSpacesSuppressSpacesVersionCheck";
+        NSString* supressKey = @"TotalSpacesSuppressDockVersionCheck";
         NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
         if (![defaults boolForKey:supressKey]) {
             TSStandardVersionComparator* comparator = [TSStandardVersionComparator defaultComparator];
