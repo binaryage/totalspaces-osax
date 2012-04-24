@@ -96,7 +96,7 @@
 				8D57630F048677EA00EA77CD /* Resources */,
 				8D576311048677EA00EA77CD /* Sources */,
 				8D576313048677EA00EA77CD /* Frameworks */,
-				D6827C8115410D60008DE10E /* ShellScript */,
+				3AFDD1A51543352C001AEFD3 /* Copy to Built */,
 			);
 			buildRules = (
 			);
@@ -149,18 +149,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		D6827C8115410D60008DE10E /* ShellScript */ = {
+		3AFDD1A51543352C001AEFD3 /* Copy to Built */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Copy to Built";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "rm -rf ~/Library/ScriptingAdditions/TotalSpaces.osax\nmkdir -p ~/Library/ScriptingAdditions/TotalSpaces.osax\nchmod ugo+rw ~/Library/ScriptingAdditions/TotalSpaces.osax\nln -s \"$BUILT_PRODUCTS_DIR/TotalSpaces.osax/Contents\" ~/Library/ScriptingAdditions/TotalSpaces.osax/Contents # faster than copy";
+			shellScript = "BIN=\"$PROJECT_DIR/../Built\"\nOSAX=\"$BIN/TotalSpaces.osax\"\n\ncp -Rf \"$BUILT_PRODUCTS_DIR/TotalSpaces.osax/\" \"$OSAX\"\n\nSCRIPT_LIB=\"/Library/ScriptingAdditions\"\n\n#rm -fr \"$SCRIPT_LIB/TotalSpaces.osax\"\ncp -Rf \"$OSAX\" \"$SCRIPT_LIB\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

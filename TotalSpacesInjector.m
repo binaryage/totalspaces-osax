@@ -62,42 +62,19 @@ OSErr HandleInitEvent(const AppleEvent *ev, AppleEvent *reply, long refcon) {
         return noErr;
     }
     @try {
+      
         NSBundle* dockBundle = [NSBundle mainBundle];
         if (!dockBundle) {
             reportError(reply, [NSString stringWithFormat:@"Unable to locate main Dock bundle!"]);
             return 4;
         }
-        
+      
         NSString* dockVersion = [dockBundle objectForInfoDictionaryKey:@"CFBundleVersion"];
         if (!dockVersion || ![dockVersion isKindOfClass:[NSString class]]) {
-            reportError(reply, [NSString stringWithFormat:@"Unable to determine Spaces version!"]);
+            reportError(reply, [NSString stringWithFormat:@"Unable to determine Dock version!"]);
             return 5;
         }
-        
-        // future compatibility check
-        NSString* supressKey = @"TotalSpacesSuppressSpacesVersionCheck";
-        NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-        if (![defaults boolForKey:supressKey]) {
-            TSStandardVersionComparator* comparator = [TSStandardVersionComparator defaultComparator];
-            if (([comparator compareVersion:dockVersion toVersion:DOCK_MAX_TESTED_VERSION]==NSOrderedDescending) || 
-                ([comparator compareVersion:dockVersion toVersion:DOCK_MIN_TESTED_VERSION]==NSOrderedAscending)) {
-
-                NSAlert* alert = [NSAlert new];
-                [alert setMessageText: [NSString stringWithFormat:@"You have Dock version %@", dockVersion]];
-                [alert setInformativeText: [NSString stringWithFormat:@"But TotalSpaces was properly tested only with Dock versions in range %@ - %@\n\nYou have probably updated your system and Dock version got bumped by Apple developers.\n\nYou may expect a new TotalSpaces release soon.", DOCK_MIN_TESTED_VERSION, DOCK_MAX_TESTED_VERSION]];
-                [alert setShowsSuppressionButton:YES];
-                [alert addButtonWithTitle:@"Launch TotalSpaces anyway"];
-                [alert addButtonWithTitle:@"Cancel"];
-                NSInteger res = [alert runModal];
-                if ([[alert suppressionButton] state] == NSOnState) {
-                    [defaults setBool:YES forKey:supressKey];
-                }
-                if (res!=NSAlertFirstButtonReturn) { // cancel
-                    return noErr;
-                }
-            }
-        }
-        
+            
         NSBundle* totalSpacesInjectorBundle = [NSBundle bundleForClass:[TotalSpacesInjector class]];
         NSString* totalSpacesLocation = [totalSpacesInjectorBundle pathForResource:@"TotalSpaces" ofType:@"bundle"];
         NSBundle* pluginBundle = [NSBundle bundleWithPath:totalSpacesLocation];
