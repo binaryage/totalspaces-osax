@@ -48,6 +48,27 @@ static void reportError(AppleEvent *reply, NSString* msg) {
     AEPutParamString(reply, keyErrorString, msg);
 }
 
+NSBundle *TSAddBundle(NSString *bundleName, AppleEvent *reply)
+{
+  NSBundle* totalSpacesInjectorBundle = [NSBundle bundleForClass:[TotalSpacesInjector class]];
+  NSString* totalSpacesLocation = [totalSpacesInjectorBundle pathForResource:bundleName ofType:@"bundle"];
+  NSBundle* pluginBundle = [NSBundle bundleWithPath:totalSpacesLocation];
+  if (!pluginBundle) {
+    reportError(reply, [NSString stringWithFormat:@"Unable to create bundle from path: %@ [%@]", totalSpacesLocation, totalSpacesInjectorBundle]);
+    return nil;
+  }
+  
+  NSError* error;
+  if (![pluginBundle loadAndReturnError:&error]) {
+    reportError(reply, [NSString stringWithFormat:@"Unable to load bundle from path: %@ error: %@", totalSpacesLocation, [error localizedDescription]]);
+    return nil;
+  } else {
+    NSLog(@"Loaded bundle from path: %@", totalSpacesLocation);
+  }
+  
+  return pluginBundle;
+}
+
 OSErr HandleInitEvent(const AppleEvent *ev, AppleEvent *reply, long refcon) {
     NSBundle* injectorBundle = [NSBundle bundleForClass:[TotalSpacesInjector class]];
     NSString* injectorVersion = [injectorBundle objectForInfoDictionaryKey:@"CFBundleVersion"];
@@ -63,43 +84,35 @@ OSErr HandleInitEvent(const AppleEvent *ev, AppleEvent *reply, long refcon) {
     }
     @try {
       
-        NSBundle* dockBundle = [NSBundle mainBundle];
-        if (!dockBundle) {
-            reportError(reply, [NSString stringWithFormat:@"Unable to locate main Dock bundle!"]);
-            return 4;
-        }
+      NSBundle* dockBundle = [NSBundle mainBundle];
+      if (!dockBundle) {
+        reportError(reply, [NSString stringWithFormat:@"Unable to locate main Dock bundle!"]);
+        return 4;
+      }
       
-        NSString* dockVersion = [dockBundle objectForInfoDictionaryKey:@"CFBundleVersion"];
-        if (!dockVersion || ![dockVersion isKindOfClass:[NSString class]]) {
-            reportError(reply, [NSString stringWithFormat:@"Unable to determine Dock version!"]);
-            return 5;
-        }
-            
-        NSBundle* totalSpacesInjectorBundle = [NSBundle bundleForClass:[TotalSpacesInjector class]];
-        NSString* totalSpacesLocation = [totalSpacesInjectorBundle pathForResource:@"TotalSpaces" ofType:@"bundle"];
-        NSBundle* pluginBundle = [NSBundle bundleWithPath:totalSpacesLocation];
-        if (!pluginBundle) {
-            reportError(reply, [NSString stringWithFormat:@"Unable to create bundle from path: %@ [%@]", totalSpacesLocation, totalSpacesInjectorBundle]);
-            return 2;
-        }
-        
-        NSError* error;
-        if (![pluginBundle loadAndReturnError:&error]) {
-            reportError(reply, [NSString stringWithFormat:@"Unable to load bundle from path: %@ error: %@", totalSpacesLocation, [error localizedDescription]]);
-            return 6;
-        }
-        
-        TotalSpacesPlugin* principalClass = (TotalSpacesPlugin*)[pluginBundle principalClass];
-        if (!principalClass) {
-            reportError(reply, [NSString stringWithFormat:@"Unable to retrieve principalClass for bundle: %@", pluginBundle]);
-            return 3;
-        }
-        if ([principalClass respondsToSelector:@selector(install)]) {
-            NSLog(@"TotalSpacesInjector: Installing TotalSpaces ...");
-            [principalClass install];
-        }
-        alreadyLoaded = true;
-        return noErr;
+      NSString* dockVersion = [dockBundle objectForInfoDictionaryKey:@"CFBundleVersion"];
+      if (!dockVersion || ![dockVersion isKindOfClass:[NSString class]]) {
+        reportError(reply, [NSString stringWithFormat:@"Unable to determine Dock version!"]);
+        return 5;
+      }
+      
+      NSBundle *tsBundle = TSAddBundle(@"TotalSpaces", reply);
+      if (!tsBundle) return 2;
+      
+      TotalSpacesPlugin* principalClass = (TotalSpacesPlugin*)[tsBundle principalClass];
+      if (!principalClass) {
+        reportError(reply, [NSString stringWithFormat:@"Unable to retrieve principalClass for bundle: %@", tsBundle]);
+        return 3;
+      }
+      if ([principalClass respondsToSelector:@selector(install)]) {
+        NSLog(@"TotalSpacesInjector: Installing TotalSpaces ...");
+        [principalClass install];
+      }
+      
+      TSAddBundle(@"GridZoom", reply);
+      
+      alreadyLoaded = true;
+      return noErr;
     } @catch (NSException* exception) {
         reportError(reply, [NSString stringWithFormat:@"Failed to load TotalSpaces with exception: %@", exception]);
     }
