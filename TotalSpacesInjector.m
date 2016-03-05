@@ -83,7 +83,6 @@ OSErr HandleInitEvent(const AppleEvent *ev, AppleEvent *reply, long refcon) {
         return noErr;
     }
     @try {
-      
       NSBundle* dockBundle = [NSBundle mainBundle];
       if (!dockBundle) {
         reportError(reply, [NSString stringWithFormat:@"Unable to locate main Dock bundle!"]);
