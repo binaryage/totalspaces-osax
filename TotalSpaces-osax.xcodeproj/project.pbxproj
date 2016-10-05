@@ -161,7 +161,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "BIN=\"$PROJECT_DIR/../TotalSpaces2/Built\"\nOSAX=\"$BIN/TotalSpaces.osax\"\n\ncp -Rf \"$BUILT_PRODUCTS_DIR/TotalSpaces.osax/\" \"$OSAX\"\n\nSCRIPT_LIB=\"/Library/ScriptingAdditions\"\n\n#cp -Rf \"$OSAX\" \"$SCRIPT_LIB\"\n";
+			shellScript = "SRC=\"$BUILT_PRODUCTS_DIR/$FULL_PRODUCT_NAME\"\nDST=\"$PROJECT_DIR/../TotalSpaces2/Built\"\ncp -Rf \"$SRC\" \"$DST\"\n\nif [ \"$CONFIGURATION\" != \"Debug\" ]; then exit 0; fi\n\nDST=\"/Library/ScriptingAdditions/TotalSpaces.osax\"\nosascript <<EOF\ntry\n    do shell script \"cp -Rf \\\"$SRC\\\" \\\"$DST\\\"\" with administrator privileges\non error errStr number errNum\n    if errNum is not -128 then return errStr & return & errNum\nend try\nEOF";
 		};
 /* End PBXShellScriptBuildPhase section */
 
