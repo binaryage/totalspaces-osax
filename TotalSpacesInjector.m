@@ -2,9 +2,7 @@
 
 #import "TSStandardVersionComparator.h"
 
-#define TOTALSPACES_STANDARD_INSTALL_LOCATION "/Applications/TotalSpaces.app"
-#define DOCK_MIN_TESTED_VERSION @"1040.7" // 10.7.2-11C43
-#define DOCK_MAX_TESTED_VERSION @"1040.35" // 10.7.4-11E46
+#define TOTALSPACES_STANDARD_INSTALL_LOCATION "/Applications/TotalSpaces2.app"
 
 // SIMBL-compatible interface
 @interface TotalSpacesPlugin: NSObject { 
@@ -44,26 +42,85 @@ OSErr AEPutParamString(AppleEvent *event, AEKeyword keyword, NSString* string) {
 }
 
 static void reportError(AppleEvent *reply, NSString* msg) {
-    NSLog(@"TotalSpacesInjector: %@", msg);
+    NSLog(@"[TotalSpaces] TotalSpacesInjector: %@", msg);
     AEPutParamString(reply, keyErrorString, msg);
+}
+
+static NSString* checkSignature(CFURLRef bundleURL, CFStringRef requirementString) {
+    CFErrorRef error = NULL;
+    SecStaticCodeRef staticCode = NULL;
+    SecStaticCodeCreateWithPath(bundleURL, kSecCSDefaultFlags, &staticCode);
+    
+    if (!staticCode) {
+        return @"SecStaticCodeCreateWithPath returned no staticCode";
+    }
+    
+    SecRequirementRef requirementRef  = NULL;
+    OSStatus requirementCreateStatus = SecRequirementCreateWithStringAndErrors(requirementString, kSecCSDefaultFlags, &error, &requirementRef);
+    if (error) {
+        if (requirementRef) {
+            CFRelease(requirementRef);
+        }
+        NSString* result = [NSString stringWithFormat:@"SecRequirementCreateWithStringAndErrors reported %@", error];
+        CFRelease(error);
+        return result;
+    }
+    
+    if (requirementCreateStatus != errSecSuccess) {
+        if (requirementRef) {
+            CFRelease(requirementRef);
+        }
+        return [NSString stringWithFormat:@"SecRequirementCreateWithString returned error %d)", (int)requirementCreateStatus];
+    }
+    
+    SecCSFlags flags = (SecCSFlags) (kSecCSDefaultFlags | kSecCSCheckAllArchitectures | kSecCSCheckNestedCode);
+    OSStatus signatureCheckResult = SecStaticCodeCheckValidityWithErrors(staticCode, flags, requirementRef, &error);
+    CFRelease(requirementRef);
+    CFRelease(staticCode);
+    
+    if (error) {
+        NSString* result = [NSString stringWithFormat:@"SecStaticCodeCheckValidityWithErrors reported %@", error];
+        CFRelease(error);
+        return result;
+    }
+    
+    if (signatureCheckResult != errSecSuccess) {
+        return [NSString stringWithFormat:@"SecStaticCodeCheckValidityWithErrors returned %d", (int)signatureCheckResult];
+    }
+    
+    return nil;
 }
 
 NSBundle *TSAddBundle(NSString *bundleName, AppleEvent *reply)
 {
-  NSBundle* totalSpacesInjectorBundle = [NSBundle bundleForClass:[TotalSpacesInjector class]];
-  NSString* totalSpacesLocation = [totalSpacesInjectorBundle pathForResource:bundleName ofType:@"bundle"];
-  NSBundle* pluginBundle = [NSBundle bundleWithPath:totalSpacesLocation];
+    NSString *path = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:@"com.binaryage.TotalSpaces2"];
+    NSString *resource = [NSString stringWithFormat:@"%@/Contents/Resources/%@.bundle", path, bundleName];
+    
+  NSBundle* pluginBundle = [NSBundle bundleWithPath:resource];
   if (!pluginBundle) {
-    reportError(reply, [NSString stringWithFormat:@"Unable to create bundle from path: %@ [%@]", totalSpacesLocation, totalSpacesInjectorBundle]);
-    return nil;
+    path = @TOTALSPACES_STANDARD_INSTALL_LOCATION; // try the default location
+    NSString *resource = [NSString stringWithFormat:@"%@/Contents/Resources/%@.bundle", path, bundleName];
+    pluginBundle = [NSBundle bundleWithPath:resource];
+      
+    if (!pluginBundle) {
+      reportError(reply, [NSString stringWithFormat:@"Unable to create bundle from path: %@ [%@]", resource, path]);
+      return nil;
+    }
   }
   
+  NSString *errStr = checkSignature((CFURLRef)pluginBundle.bundleURL, CFSTR("anchor apple generic and certificate leaf[subject.CN] = \"Developer ID Application: BinaryAge Limited\""));
+
+  if (errStr) {
+    reportError(reply, [NSString stringWithFormat:@"Bundle failed checks: %@ [%@]", errStr, path]);
+    return nil;
+  }
+
   NSError* error;
   if (![pluginBundle loadAndReturnError:&error]) {
-    reportError(reply, [NSString stringWithFormat:@"Unable to load bundle from path: %@ error: %@", totalSpacesLocation, [error localizedDescription]]);
+    reportError(reply, [NSString stringWithFormat:@"Unable to load bundle from path: %@ error: %@", resource, [error localizedDescription]]);
     return nil;
   } else {
-    NSLog(@"Loaded bundle from path: %@", totalSpacesLocation);
+    NSLog(@"[TotalSpaces] Loaded bundle from path: %@", resource);
   }
   
   return pluginBundle;
@@ -77,9 +134,9 @@ OSErr HandleInitEvent(const AppleEvent *ev, AppleEvent *reply, long refcon) {
         return 7;
     }
     
-    NSLog(@"TotalSpacesInjector v%@ received init event", injectorVersion);
+    NSLog(@"[TotalSpaces] TotalSpacesInjector v%@ received init event", injectorVersion);
     if (alreadyLoaded) {
-        NSLog(@"TotalSpacesInjector: TotalSpaces has been already loaded. Ignoring this request.");
+        NSLog(@"[TotalSpaces] TotalSpacesInjector: TotalSpaces has been already loaded. Ignoring this request.");
         return noErr;
     }
     @try {
@@ -104,7 +161,7 @@ OSErr HandleInitEvent(const AppleEvent *ev, AppleEvent *reply, long refcon) {
         return 3;
       }
       if ([principalClass respondsToSelector:@selector(install)]) {
-        NSLog(@"TotalSpacesInjector: Installing TotalSpaces ...");
+        NSLog(@"[TotalSpaces] TotalSpacesInjector: Installing TotalSpaces ...");
         [principalClass install];
       }
       
