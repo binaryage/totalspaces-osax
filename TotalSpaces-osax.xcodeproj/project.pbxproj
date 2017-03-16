@@ -173,7 +173,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "BIN=\"$PROJECT_DIR/../TotalSpaces2/Built\"\nOSAX=\"$BIN/TotalSpaces.osax\"\n\ncp -Rf \"$BUILT_PRODUCTS_DIR/TotalSpaces.osax/\" \"$OSAX\"\n\nSCRIPT_LIB=\"/Library/ScriptingAdditions\"\n\n#cp -Rf \"$OSAX\" \"$SCRIPT_LIB\"\n";
+			shellScript = "SRC=\"$BUILT_PRODUCTS_DIR/$FULL_PRODUCT_NAME\"\nDST=\"$PROJECT_DIR/../TotalSpaces2/Built\"\ncp -Rf \"$SRC\" \"$DST\"\n\nif [ \"$CONFIGURATION\" != \"Debug\" ]; then exit 0; fi\n\nDST=\"/Library/ScriptingAdditions/TotalSpaces.osax\"\nosascript <<EOF\ntry\n    do shell script \"cp -Rf \\\"$SRC\\\" \\\"$DST\\\"\" with administrator privileges\non error errStr number errNum\n    if errNum is not -128 then return errStr & return & errNum\nend try\nEOF";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -205,7 +205,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				CODE_SIGN_IDENTITY = "Developer ID Application: Stephen Sykes";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -228,7 +227,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				CODE_SIGN_IDENTITY = "Developer ID Application: Stephen Sykes";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				INFOPLIST_FILE = Info.plist;
@@ -247,7 +245,7 @@
 		1DEB911F08733D790010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Developer ID Application: Stephen Sykes";
+				CODE_SIGN_IDENTITY = "Developer ID Application: BinaryAge Limited";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
@@ -259,7 +257,7 @@
 		1DEB912008733D790010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Developer ID Application: Stephen Sykes";
+				CODE_SIGN_IDENTITY = "Developer ID Application: BinaryAge Limited";
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_CODE_SIGN_FLAGS = "";
