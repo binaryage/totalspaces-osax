@@ -245,7 +245,7 @@
 		1DEB911F08733D790010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Developer ID Application: BinaryAge Limited";
+				CODE_SIGN_IDENTITY = "Developer ID Application: BinaryAge Limited (AP4EJW5QY6)";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
@@ -257,7 +257,7 @@
 		1DEB912008733D790010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Developer ID Application: BinaryAge Limited";
+				CODE_SIGN_IDENTITY = "Developer ID Application: BinaryAge Limited (AP4EJW5QY6)";
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_CODE_SIGN_FLAGS = "";
