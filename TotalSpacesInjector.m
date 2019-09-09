@@ -94,12 +94,12 @@ static NSString* checkSignature(CFURLRef bundleURL, CFStringRef requirementStrin
 NSBundle *TSAddBundle(NSString *bundleName, AppleEvent *reply)
 {
     NSString *path = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:@"com.binaryage.TotalSpaces2"];
-    NSString *resource = [NSString stringWithFormat:@"%@/Contents/Resources/%@.bundle", path, bundleName];
+    NSString *resource = [NSString stringWithFormat:@"%@/Contents/Plugins/%@.bundle", path, bundleName];
     
   NSBundle* pluginBundle = [NSBundle bundleWithPath:resource];
   if (!pluginBundle) {
     path = @TOTALSPACES_STANDARD_INSTALL_LOCATION; // try the default location
-    NSString *resource = [NSString stringWithFormat:@"%@/Contents/Resources/%@.bundle", path, bundleName];
+    NSString *resource = [NSString stringWithFormat:@"%@/Contents/Plugins/%@.bundle", path, bundleName];
     pluginBundle = [NSBundle bundleWithPath:resource];
       
     if (!pluginBundle) {
