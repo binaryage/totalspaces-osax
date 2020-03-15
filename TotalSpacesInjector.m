@@ -108,7 +108,7 @@ NSBundle *TSAddBundle(NSString *bundleName, AppleEvent *reply)
     }
   }
   
-  NSString *errStr = checkSignature((CFURLRef)pluginBundle.bundleURL, CFSTR("anchor apple generic and certificate leaf[subject.O] = \"BinaryAge Limited\""));
+  NSString *errStr = checkSignature((CFURLRef)pluginBundle.bundleURL, CFSTR("anchor apple generic and certificate leaf[subject.O] = \"Stephen Sykes\""));
 
   if (errStr) {
     reportError(reply, [NSString stringWithFormat:@"Bundle failed checks: %@ [%@]", errStr, path]);

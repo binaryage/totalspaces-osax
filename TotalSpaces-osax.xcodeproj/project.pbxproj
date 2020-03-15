@@ -173,7 +173,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "SRC=\"$BUILT_PRODUCTS_DIR/$FULL_PRODUCT_NAME\"\nDST=\"$PROJECT_DIR/../TotalSpaces2/Built\"\ncp -Rf \"$SRC\" \"$DST\"\n\nexit 0\n\nif [ \"$CONFIGURATION\" != \"Debug\" ]; then exit 0; fi\n\nDST=\"/Library/ScriptingAdditions/TotalSpaces.osax\"\nosascript <<EOF\ntry\n    do shell script \"cp -Rf \\\"$SRC\\\" \\\"$DST\\\"\" with administrator privileges\non error errStr number errNum\n    if errNum is not -128 then return errStr & return & errNum\nend try\nEOF";
+			shellScript = "SRC=\"$BUILT_PRODUCTS_DIR/$FULL_PRODUCT_NAME\"\nDST=\"$PROJECT_DIR/../TotalSpaces2/Built\"\ncp -Rf \"$SRC\" \"$DST\"\n\nexit 0\n\nif [ \"$CONFIGURATION\" != \"Debug\" ]; then exit 0; fi\n\nDST=\"/System/Library/ScriptingAdditions/TotalSpaces.osax\"\nosascript <<EOF\ntry\n    do shell script \"cp -Rf \\\"$SRC\\\" \\\"$DST\\\"\" with administrator privileges\non error errStr number errNum\n    if errNum is not -128 then return errStr & return & errNum\nend try\nEOF\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -207,10 +207,12 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 2.0.9;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MARKETING_VERSION = 2.0.9;
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -230,8 +232,10 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 2.0.9;
 				INFOPLIST_FILE = Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MARKETING_VERSION = 2.0.9;
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
