@@ -1,4 +1,4 @@
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 #import "TSStandardVersionComparator.h"
 
@@ -42,7 +42,7 @@ OSErr AEPutParamString(AppleEvent *event, AEKeyword keyword, NSString* string) {
 }
 
 static void reportError(AppleEvent *reply, NSString* msg) {
-    NSLog(@"[TotalSpaces] TotalSpacesInjector: %@", msg);
+    NSLog(@"ts2: TotalSpacesInjector: %@", msg);
     AEPutParamString(reply, keyErrorString, msg);
 }
 
@@ -93,12 +93,20 @@ static NSString* checkSignature(CFURLRef bundleURL, CFStringRef requirementStrin
 
 NSBundle *TSAddBundle(NSString *bundleName, AppleEvent *reply)
 {
-    NSString *path = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:@"com.binaryage.TotalSpaces2"];
-    NSString *resource = [NSString stringWithFormat:@"%@/Contents/Plugins/%@.bundle", path, bundleName];
+    NSBundle* pluginBundle = nil;
+    NSString *resource = nil;
+    CFBundleRef tsBundle = CFBundleGetBundleWithIdentifier(CFSTR("com.binaryage.TotalSpaces2"));
+    if (tsBundle) {
+        CFURLRef pathURL = CFBundleCopyBundleURL(tsBundle);
+        if (pathURL) {
+            CFStringRef path = CFURLCopyFileSystemPath(pathURL, kCFURLPOSIXPathStyle);
+            NSString *resource = [NSString stringWithFormat:@"%@/Contents/Plugins/%@.bundle", path, bundleName];
+            pluginBundle = [NSBundle bundleWithPath:resource];
+        }
+    }
     
-  NSBundle* pluginBundle = [NSBundle bundleWithPath:resource];
   if (!pluginBundle) {
-    path = @TOTALSPACES_STANDARD_INSTALL_LOCATION; // try the default location
+    NSString *path = @TOTALSPACES_STANDARD_INSTALL_LOCATION; // try the default location
     NSString *resource = [NSString stringWithFormat:@"%@/Contents/Plugins/%@.bundle", path, bundleName];
     pluginBundle = [NSBundle bundleWithPath:resource];
       
@@ -111,7 +119,7 @@ NSBundle *TSAddBundle(NSString *bundleName, AppleEvent *reply)
   NSString *errStr = checkSignature((CFURLRef)pluginBundle.bundleURL, CFSTR("anchor apple generic and certificate leaf[subject.O] = \"Stephen Sykes\""));
 
   if (errStr) {
-    reportError(reply, [NSString stringWithFormat:@"Bundle failed checks: %@ [%@]", errStr, path]);
+      reportError(reply, [NSString stringWithFormat:@"Bundle failed checks: %@ [%@]", errStr, pluginBundle.bundlePath]);
     return nil;
   }
 
@@ -120,7 +128,7 @@ NSBundle *TSAddBundle(NSString *bundleName, AppleEvent *reply)
     reportError(reply, [NSString stringWithFormat:@"Unable to load bundle from path: %@ error: %@", resource, [error localizedDescription]]);
     return nil;
   } else {
-    NSLog(@"[TotalSpaces] Loaded bundle from path: %@", resource);
+    NSLog(@"ts2: [TotalSpaces] Loaded bundle from path: %@", resource);
   }
   
   return pluginBundle;
@@ -134,9 +142,9 @@ OSErr HandleInitEvent(const AppleEvent *ev, AppleEvent *reply, long refcon) {
         return 7;
     }
     
-    NSLog(@"[TotalSpaces] TotalSpacesInjector v%@ received init event", injectorVersion);
+    NSLog(@"ts2: [TotalSpaces] TotalSpacesInjector v%@ received init event", injectorVersion);
     if (alreadyLoaded) {
-        NSLog(@"[TotalSpaces] TotalSpacesInjector: TotalSpaces has been already loaded. Ignoring this request.");
+        NSLog(@"ts2: [TotalSpaces] TotalSpacesInjector: TotalSpaces has been already loaded. Ignoring this request.");
         return noErr;
     }
     @try {
@@ -161,12 +169,10 @@ OSErr HandleInitEvent(const AppleEvent *ev, AppleEvent *reply, long refcon) {
         return 3;
       }
       if ([principalClass respondsToSelector:@selector(install)]) {
-        NSLog(@"[TotalSpaces] TotalSpacesInjector: Installing TotalSpaces ...");
+        NSLog(@"ts2: [TotalSpaces] TotalSpacesInjector: Installing TotalSpaces ...");
         [principalClass install];
       }
-      
-      TSAddBundle(@"GridZoom", reply);
-      
+
       alreadyLoaded = true;
       return noErr;
     } @catch (NSException* exception) {

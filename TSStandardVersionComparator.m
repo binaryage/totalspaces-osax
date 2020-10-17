@@ -6,7 +6,7 @@
 //  Copyright 2007 Andy Matuschak. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 #import "TSStandardVersionComparator.h"
 
 @implementation TSStandardVersionComparator
